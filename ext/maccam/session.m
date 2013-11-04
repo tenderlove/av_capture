@@ -1,7 +1,5 @@
 #include <rb_av_dev.h>
 
-static VALUE rb_cStillImageOutput;
-
 static VALUE can_add_output_p(VALUE self, VALUE output) {
   AVCaptureSession * session;
   AVCaptureOutput * op;
@@ -34,9 +32,7 @@ static VALUE allocate(VALUE klass) {
   return Data_Wrap_Struct(klass, 0, 0, session);
 }
 
-VALUE Init_session(VALUE outer, VALUE output) {
-  rb_cStillImageOutput = output;
-
+VALUE Init_session(VALUE outer) {
   VALUE rb_cSession = rb_define_class_under(outer, "Session", rb_cObject);
 
   rb_define_alloc_func(rb_cSession, allocate);

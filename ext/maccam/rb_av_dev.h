@@ -7,6 +7,6 @@
 VALUE Init_device(VALUE outer);
 VALUE Init_still_image_output(VALUE outer, VALUE conn);
 VALUE Init_connection(VALUE outer);
-VALUE Init_session(VALUE outer, VALUE output);
+VALUE Init_session(VALUE outer);
 
 #endif
