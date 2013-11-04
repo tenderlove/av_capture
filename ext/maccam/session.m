@@ -26,6 +26,31 @@ static VALUE add_output(VALUE self, VALUE output) {
   return self;
 }
 
+static VALUE can_add_input_p(VALUE self, VALUE input) {
+  AVCaptureSession * session;
+  AVCaptureInput * in;
+
+  Data_Get_Struct(self, AVCaptureSession, session);
+  Data_Get_Struct(input, AVCaptureInput, in);
+
+  if ([session canAddInput:in]) {
+    return Qtrue;
+  } else {
+    return Qfalse;
+  }
+}
+
+static VALUE add_input(VALUE self, VALUE input) {
+  AVCaptureSession * session;
+  AVCaptureInput * in;
+
+  Data_Get_Struct(self, AVCaptureSession, session);
+  Data_Get_Struct(input, AVCaptureInput, in);
+
+  [session addInput:in];
+
+  return self;
+}
 static VALUE allocate(VALUE klass) {
   AVCaptureSession *session = [[AVCaptureSession alloc] init];
 
@@ -38,6 +63,8 @@ VALUE Init_session(VALUE outer) {
   rb_define_alloc_func(rb_cSession, allocate);
   rb_define_method(rb_cSession, "can_add_output?", can_add_output_p, 1);
   rb_define_method(rb_cSession, "add_output", add_output, 1);
+  rb_define_method(rb_cSession, "can_add_input?", can_add_input_p, 1);
+  rb_define_method(rb_cSession, "add_input", add_input, 1);
 
   return rb_cSession;
 }

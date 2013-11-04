@@ -25,6 +25,7 @@ void Init_maccam() {
   rb_cStillImageOutput = Init_still_image_output(rb_cAVCapture,
       Init_connection(rb_cAVCapture));
 
+  Init_input(rb_cAVCapture);
   Init_session(rb_cAVCapture);
 
   rb_define_singleton_method(rb_cAVCapture, "devices", rb_devices, 0);
