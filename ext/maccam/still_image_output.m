@@ -1,6 +1,6 @@
 #include <rb_av_dev.h>
 
-VALUE rb_cAVConnection;
+static VALUE rb_cAVConnection;
 
 static VALUE rb_connect(VALUE self, VALUE media_type) {
   AVCaptureOutput * capture;

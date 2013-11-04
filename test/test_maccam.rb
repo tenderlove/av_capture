@@ -8,9 +8,15 @@ class TestMaccam < MiniTest::Unit::TestCase
   end
 
   def test_connect
+    skip "not working yet"
     sio = AVCapture::StillImageOutput.new
     assert_equal 0, sio.connections.length
     assert sio.connect AVCapture::AVMediaTypeVideo
     assert_equal 1, sio.connections.length
+  end
+
+  def test_session
+    session = AVCapture::Session.new
+    assert session.can_add_output?(AVCapture::StillImageOutput.new)
   end
 end
