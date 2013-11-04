@@ -1,7 +1,7 @@
 #import <Cocoa/Cocoa.h>
 #import <ImageCaptureCore/ImageCaptureCore.h>
 
-@interface CamBrowser: NSObject {
+@interface CamBrowser: NSObject <ICDeviceBrowserDelegate> {
   ICDeviceBrowser* mDevBrowser;
   NSMutableArray* mCams;
 }
