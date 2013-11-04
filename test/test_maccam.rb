@@ -17,6 +17,8 @@ class TestMaccam < MiniTest::Unit::TestCase
 
   def test_session
     session = AVCapture::Session.new
-    assert session.can_add_output?(AVCapture::StillImageOutput.new)
+    sio = AVCapture::StillImageOutput.new
+    assert session.can_add_output?(sio)
+    session.add_output sio
   end
 end
