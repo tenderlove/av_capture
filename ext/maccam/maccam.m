@@ -21,7 +21,9 @@ void Init_maccam() {
   VALUE rb_cAVCapture = rb_define_class("AVCapture", rb_cObject);
 
   rb_cAVDevice = Init_device(rb_cAVCapture);
-  rb_cStillImageOutput = Init_still_image_output(rb_cAVCapture);
+  rb_cStillImageOutput = Init_still_image_output(rb_cAVCapture,
+      Init_connection(rb_cAVCapture));
+
   rb_define_singleton_method(rb_cAVCapture, "devices", rb_devices, 0);
   rb_define_const(rb_cAVCapture, "AVMediaTypeVideo", rb_str_new2([AVMediaTypeVideo UTF8String]));
 }
