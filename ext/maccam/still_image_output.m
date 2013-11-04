@@ -3,14 +3,20 @@
 VALUE rb_cAVConnection;
 
 static VALUE rb_connect(VALUE self, VALUE media_type) {
-  AVCaptureDevice * dev;
+  AVCaptureOutput * capture;
 
-  Data_Get_Struct(self, AVCaptureDevice, dev);
+  Data_Get_Struct(self, AVCaptureOutput, capture);
 
-  /*
-  AVCaptureConnection * conn = [dev connectionWithMediaType:mt];
-  */
-  return Qnil;
+  NSString * mt = [NSString stringWithCString: StringValuePtr(media_type)
+                            encoding: NSUTF8StringEncoding];
+
+  AVCaptureConnection * conn = [capture connectionWithMediaType:mt];
+
+  if (conn) {
+    return Data_Wrap_Struct(rb_cAVConnection, 0, 0, conn);
+  } else {
+    return Qnil;
+  }
 }
 
 static VALUE connections(VALUE self) {
