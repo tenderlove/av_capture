@@ -38,11 +38,11 @@ static VALUE rb_connect(VALUE self, VALUE media_type) {
 }
 
 void Init_maccam() {
-  VALUE rb_cMacCam = rb_define_class("MacCam", rb_cObject);
-  rb_cAVDevice = rb_define_class_under(rb_cMacCam, "Device", rb_cObject);
-  rb_cStillImageOutput = rb_define_class_under(rb_cMacCam, "StillImageOutput", rb_cObject);
+  VALUE rb_cAVCapture = rb_define_class("AVCapture", rb_cObject);
+  rb_cAVDevice = rb_define_class_under(rb_cAVCapture, "Device", rb_cObject);
+  rb_cStillImageOutput = rb_define_class_under(rb_cAVCapture, "StillImageOutput", rb_cObject);
 
-  rb_define_singleton_method(rb_cMacCam, "devices", rb_devices, 0);
+  rb_define_singleton_method(rb_cAVCapture, "devices", rb_devices, 0);
   rb_define_method(rb_cAVDevice, "name", rb_name, 0);
   rb_define_method(rb_cStillImageOutput, "connect", rb_connect, 1);
 
