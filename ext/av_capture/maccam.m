@@ -18,7 +18,7 @@ static VALUE rb_devices(VALUE klass) {
 }
 
 void Init_av_capture() {
-  VALUE rb_cAVCapture = rb_define_class("AVCapture", rb_cObject);
+  VALUE rb_cAVCapture = rb_define_module("AVCapture");
 
   rb_cAVDevice = Init_device(rb_cAVCapture);
 
