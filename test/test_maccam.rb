@@ -2,6 +2,10 @@ require 'minitest/autorun'
 require 'av_capture'
 
 class TestAVCapture < MiniTest::Test
+  def device
+    AVCapture.devices.find(&:video?)
+  end
+
   def test_output
     sio = AVCapture::StillImageOutput.new
     assert_equal 0, sio.connections.length
@@ -16,7 +20,7 @@ class TestAVCapture < MiniTest::Test
 
   def test_add_input
     session = AVCapture::Session.new
-    dev     = AVCapture.devices[1]
+    dev     = device
     input   = AVCapture::DeviceInput.new dev
     assert session.can_add_input?(input)
     session.add_input input
@@ -24,7 +28,7 @@ class TestAVCapture < MiniTest::Test
 
   def test_add_io
     session = AVCapture::Session.new
-    dev     = AVCapture.devices[1]
+    dev     = device
     input   = AVCapture::DeviceInput.new dev
     output  = AVCapture::StillImageOutput.new
     session.add_input input
@@ -34,7 +38,7 @@ class TestAVCapture < MiniTest::Test
 
   def test_captureStillImageAsynchronouslyFromConnection
     session = AVCapture::Session.new
-    dev     = AVCapture.devices[1]
+    dev     = device
     input   = AVCapture::DeviceInput.new dev
     output  = AVCapture::StillImageOutput.new
     session.add_input input
