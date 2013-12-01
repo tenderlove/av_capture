@@ -1,7 +1,7 @@
 require 'minitest/autorun'
-require 'maccam'
+require 'av_capture'
 
-class TestMaccam < MiniTest::Test
+class TestAVCapture < MiniTest::Test
   def test_output
     sio = AVCapture::StillImageOutput.new
     assert_equal 0, sio.connections.length

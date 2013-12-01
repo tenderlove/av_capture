@@ -17,7 +17,7 @@ static VALUE rb_devices(VALUE klass) {
   return devs;
 }
 
-void Init_maccam() {
+void Init_av_capture() {
   VALUE rb_cAVCapture = rb_define_class("AVCapture", rb_cObject);
 
   rb_cAVDevice = Init_device(rb_cAVCapture);
