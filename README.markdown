@@ -43,7 +43,7 @@ end
 
 * FIX (list of requirements)
 
-== INSTALL:
+## INSTALL:
 
 * FIX (sudo gem install, anything else)
 
