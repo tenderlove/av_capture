@@ -26,6 +26,10 @@ class TestAVCapture < MiniTest::Test
     session.add_input input
   end
 
+  def test_as_input
+    assert_kind_of AVCapture::DeviceInput, device.as_input
+  end
+
   def test_add_io
     session = AVCapture::Session.new
     dev     = device
@@ -34,6 +38,17 @@ class TestAVCapture < MiniTest::Test
     session.add_input input
     session.add_output output
     assert_equal 1, output.connections.length
+  end
+
+  def test_video_connection
+    session = AVCapture::Session.new
+    dev     = device
+    input   = AVCapture::DeviceInput.new dev
+    output  = AVCapture::StillImageOutput.new
+    session.add_input input
+    session.add_output output
+
+    assert_kind_of AVCapture::Connection, output.video_connection
   end
 
   def test_captureStillImageAsynchronouslyFromConnection

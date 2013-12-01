@@ -5,6 +5,16 @@ module AVCapture
     def video?
       has_media_type? AVCapture::AVMediaTypeVideo
     end
+
+    def as_input
+      AVCapture::DeviceInput.new self
+    end
+  end
+
+  class StillImageOutput
+    def video_connection
+      connect AVCapture::AVMediaTypeVideo
+    end
   end
 
   class Session
