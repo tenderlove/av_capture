@@ -54,4 +54,19 @@ class TestAVCapture < MiniTest::Test
     io.close
     session.stop_running!
   end
+
+  def test_runblock
+    actions = []
+    klass = Class.new(AVCapture::Session) do
+      define_method(:start_running!) {
+        actions << :start_running
+      }
+      define_method(:stop_running!) {
+        actions << :stop_running
+      }
+    end
+    session = klass.new
+    session.run { actions << :run }
+    assert_equal [:start_running, :run, :stop_running], actions
+  end
 end

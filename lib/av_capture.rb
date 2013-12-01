@@ -6,4 +6,13 @@ module AVCapture
       has_media_type? AVCapture::AVMediaTypeVideo
     end
   end
+
+  class Session
+    def run
+      start_running!
+      yield
+    ensure
+      stop_running!
+    end
+  end
 end

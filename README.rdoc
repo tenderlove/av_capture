@@ -15,7 +15,7 @@ Wraps up AVCapture and exposes it to Ruby.
 Capture an impage:
 
   session = AVCapture::Session.new # AVCaptureSession
-  dev     = AVCapture.devices[1] # AVCaptureDevice
+  dev     = AVCapture.devices.find(&:video?) # AVCaptureDevice
   
   p dev.name
   input   = AVCapture::DeviceInput.new dev  # AVCaptureInput subclass
