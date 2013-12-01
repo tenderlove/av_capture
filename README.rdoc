@@ -1,18 +1,35 @@
-= maccam
+= AVCapture wrapper
 
-* FIX (url)
+* https://github.com/tenderlove/av_capture
 
 == DESCRIPTION:
 
-FIX (describe your package)
+Wraps up AVCapture and exposes it to Ruby.
 
 == FEATURES/PROBLEMS:
 
-* FIX (list of features or problems)
+* Not particularly easy to use right now
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+Capture an impage:
+
+  session = AVCapture::Session.new # AVCaptureSession
+  dev     = AVCapture.devices[1] # AVCaptureDevice
+  
+  p dev.name
+  input   = AVCapture::DeviceInput.new dev  # AVCaptureInput subclass
+  output  = AVCapture::StillImageOutput.new # AVCaptureOutput subclass
+  session.add_input input
+  session.add_output output
+  
+  connection = output.connect AVCapture::AVMediaTypeVideo
+  session.start_running!
+  io = IO.new output.capture_still_image connection
+  IO.select([io])
+  File.open('test.jpg', 'wb') { |f| f.write io.read }
+  io.close
+  session.stop_running!
 
 == REQUIREMENTS:
 
