@@ -2,6 +2,8 @@ require 'av_capture.so'
 require 'thread'
 
 module AVCapture
+  VERSION = '1.0.0'
+
   class Device
     def video?
       has_media_type? AVCapture::AVMediaTypeVideo
