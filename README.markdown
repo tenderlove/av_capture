@@ -1,43 +1,45 @@
-= AVCapture wrapper
+# AVCapture wrapper
 
 * https://github.com/tenderlove/av_capture
 
-== DESCRIPTION:
+## DESCRIPTION:
 
 Wraps up AVCapture and exposes it to Ruby.
 
-== FEATURES/PROBLEMS:
+## FEATURES/PROBLEMS:
 
 * Not particularly easy to use right now
 
-== SYNOPSIS:
+### SYNOPSIS:
 
 Capture an impage:
 
-    session = AVCapture::Session.new # AVCaptureSession
-    dev     = AVCapture.devices.find(&:video?) # AVCaptureDevice
-    
-    p dev.name
-    p dev.video?
-    output  = AVCapture::StillImageOutput.new # AVCaptureOutput subclass
-    session.add_input dev.as_input
-    session.add_output output
-    
-    session.run do
-      connection = output.video_connection
-    
-      ios = 5.times.map {
-        io = output.capture_on connection
-        sleep 0.5
-        io
-      }
-    
-      ios.each_with_index do |io, i|
-        File.open("x_#{i}.jpg", 'wb') { |f| f.write io.data }
-      end
-    end
+```ruby
+session = AVCapture::Session.new # AVCaptureSession
+dev     = AVCapture.devices.find(&:video?) # AVCaptureDevice
 
-== REQUIREMENTS:
+p dev.name
+p dev.video?
+output  = AVCapture::StillImageOutput.new # AVCaptureOutput subclass
+session.add_input dev.as_input
+session.add_output output
+
+session.run do
+  connection = output.video_connection
+
+  ios = 5.times.map {
+    io = output.capture_on connection
+    sleep 0.5
+    io
+  }
+
+  ios.each_with_index do |io, i|
+    File.open("x_#{i}.jpg", 'wb') { |f| f.write io.data }
+  end
+end
+```
+
+## REQUIREMENTS:
 
 * FIX (list of requirements)
 
@@ -45,7 +47,7 @@ Capture an impage:
 
 * FIX (sudo gem install, anything else)
 
-== LICENSE:
+## LICENSE:
 
 (The MIT License)
 
