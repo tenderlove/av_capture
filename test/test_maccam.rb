@@ -31,4 +31,23 @@ class TestMaccam < MiniTest::Unit::TestCase
     session.add_output output
     assert_equal 1, output.connections.length
   end
+
+  def test_captureStillImageAsynchronouslyFromConnection
+    session = AVCapture::Session.new
+    dev     = AVCapture.devices[1]
+    input   = AVCapture::DeviceInput.new dev
+    output  = AVCapture::StillImageOutput.new
+    session.add_input input
+    session.add_output output
+
+    connection = output.connect AVCapture::AVMediaTypeVideo
+
+    session.start_running!
+    pipe_fd = output.capture_still_image connection
+    io = IO.new pipe_fd
+    IO.select([io])
+    assert io.read
+    io.close
+    session.stop_running!
+  end
 end

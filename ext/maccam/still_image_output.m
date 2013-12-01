@@ -36,6 +36,29 @@ static VALUE connections(VALUE self) {
   return conns;
 }
 
+static VALUE capture(VALUE self, VALUE conn) {
+  int imagePipes[2];
+  AVCaptureStillImageOutput *output;
+  AVCaptureConnection *connection;
+
+  Data_Get_Struct(self, AVCaptureStillImageOutput, output);
+  Data_Get_Struct(conn, AVCaptureConnection, connection);
+
+  rb_pipe(imagePipes);
+  int wrt = imagePipes[1];
+  [output captureStillImageAsynchronouslyFromConnection: connection
+          completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+            if (imageDataSampleBuffer != NULL) {
+              NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+              write(wrt, [imageData bytes], [imageData length]);
+              close(wrt);
+            } else {
+              rb_raise(rb_eRuntimeError, "%s", [[error localizedDescription] UTF8String]);
+            }
+          }];
+  return INT2NUM(imagePipes[0]);
+}
+
 static VALUE allocate(VALUE klass) {
   AVCaptureStillImageOutput *output = [[AVCaptureStillImageOutput alloc] init];
   NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -56,6 +79,7 @@ VALUE Init_still_image_output(VALUE outer, VALUE conn) {
 
   rb_define_method(rb_cStillImageOutput, "connect", rb_connect, 1);
   rb_define_method(rb_cStillImageOutput, "connections", connections, 0);
+  rb_define_method(rb_cStillImageOutput, "capture_still_image", capture, 1);
 
   return rb_cStillImageOutput;
 }
