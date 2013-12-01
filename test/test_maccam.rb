@@ -70,6 +70,35 @@ class TestAVCapture < MiniTest::Test
     session.stop_running!
   end
 
+  def test_capture_on
+    session = AVCapture::Session.new
+    dev     = device
+    output  = AVCapture::StillImageOutput.new
+    session.add_input dev.as_input
+    session.add_output output
+
+    session.run do
+      connection = output.video_connection
+      pic = output.capture_on connection
+      assert pic.data
+    end
+  end
+
+  def test_select_on_pic
+    session = AVCapture::Session.new
+    dev     = device
+    output  = AVCapture::StillImageOutput.new
+    session.add_input dev.as_input
+    session.add_output output
+
+    session.run do
+      connection = output.video_connection
+      pic = output.capture_on connection
+      rd, = IO.select([pic])
+      assert rd.first.read
+    end
+  end
+
   def test_runblock
     actions = []
     klass = Class.new(AVCapture::Session) do
