@@ -5,7 +5,8 @@ static VALUE rb_name(VALUE self) {
 
   Data_Get_Struct(self, AVCaptureDevice, dev);
 
-  return rb_str_new2([[dev localizedName] UTF8String]);
+  return rb_enc_associate(rb_str_new2([[dev localizedName] UTF8String]),
+      rb_utf8_encoding());
 }
 
 static VALUE has_media_type_p(VALUE self, VALUE media_type) {

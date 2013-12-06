@@ -2,6 +2,7 @@
 #define _RB_AV_DEV_H
 
 #include <ruby.h>
+#include <ruby/encoding.h>
 #import <AVFoundation/AVFoundation.h>
 
 VALUE Init_device(VALUE outer);
