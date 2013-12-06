@@ -15,6 +15,11 @@ Hoe.spec 'av_capture' do
   self.history_file  = 'CHANGELOG.rdoc'
   self.extra_rdoc_files  = FileList['*.{rdoc,markdown}']
 
+  self.spec_extras = {
+    :extensions            => ["ext/av_capture/extconf.rb"],
+    :required_ruby_version => '>= 2.0.0'
+  }
+
   Rake::ExtensionTask.new "av_capture", spec do |ext|
     ext.lib_dir = File.join(*['lib', ENV['FAT_DIR']].compact)
   end
