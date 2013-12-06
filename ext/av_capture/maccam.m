@@ -3,6 +3,10 @@
 VALUE rb_cStillImageOutput;
 VALUE rb_cAVDevice;
 
+static void rb_release(id object) {
+  [object release];
+}
+
 static VALUE rb_devices(VALUE klass) {
   VALUE devs;
   NSArray * list = [AVCaptureDevice devices];
@@ -10,7 +14,8 @@ static VALUE rb_devices(VALUE klass) {
   devs = rb_ary_new2([list count]);
 
   for (id object in list) {
-    VALUE dev = Data_Wrap_Struct(rb_cAVDevice, 0, 0, object);
+    [object retain];
+    VALUE dev = Data_Wrap_Struct(rb_cAVDevice, 0, rb_release, object);
     rb_ary_push(devs, dev);
   }
 
