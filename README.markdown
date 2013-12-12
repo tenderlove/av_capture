@@ -12,7 +12,7 @@ Wraps up AVCapture and exposes it to Ruby.
 
 ### SYNOPSIS:
 
-Capture an impage:
+Capture an image:
 
 ```ruby
 session = AVCapture::Session.new # AVCaptureSession
