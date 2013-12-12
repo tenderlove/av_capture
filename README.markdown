@@ -45,7 +45,21 @@ end
 
 ## INSTALL:
 
-* FIX (sudo gem install, anything else)
+Compile and run the test suite to make sure you have all the necessary
+compile-time dependencies:
+
+```sh
+rake
+```
+
+Install the gem:
+
+```sh
+rake install_gem
+```
+
+You may need to run `sudo rake install_gem` depending on your Ruby
+installation.
 
 ## LICENSE:
 
