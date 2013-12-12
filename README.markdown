@@ -41,7 +41,13 @@ end
 
 ## REQUIREMENTS:
 
-* FIX (list of requirements)
+* You'll need to be running OS X to use this gem.
+
+* Because this gem depends on Apple's AVFoundation framework for
+  access to the camera, you'll need to install 
+  [Xcode](https://itunes.apple.com/us/app/xcode/id497799835) and
+  its [command-line](http://stackoverflow.com/a/9329325/798224)
+  tools before building or installing.
 
 ## INSTALL:
 
