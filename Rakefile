@@ -25,4 +25,6 @@ Hoe.spec 'av_capture' do
   end
 end
 
+task :test => [:compile]
+
 # vim: syntax=ruby
