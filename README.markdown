@@ -49,6 +49,7 @@ Compile and run the test suite to make sure you have all the necessary
 compile-time dependencies:
 
 ```sh
+bundle
 rake
 ```
 
