@@ -20,6 +20,8 @@ Hoe.spec 'av_capture' do
     :required_ruby_version => '>= 2.0.0'
   }
 
+  license 'MIT'
+
   Rake::ExtensionTask.new "av_capture", spec do |ext|
     ext.lib_dir = File.join(*['lib', ENV['FAT_DIR']].compact)
   end

@@ -4,11 +4,17 @@
 
 ## DESCRIPTION:
 
-Wraps up AVCapture and exposes it to Ruby.
+Wraps up AVCapture and exposes it to Ruby.  This gem only works on OS X.
 
 ## FEATURES/PROBLEMS:
 
+* This gem only works on OS X
 * Not particularly easy to use right now
+* This gem only works on OS X
+* This gem only works on OS X
+* This gem only works on OS X
+* This gem only works on OS X
+* This gem only works on OS X
 
 ### SYNOPSIS:
 
