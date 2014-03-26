@@ -6,6 +6,17 @@ class TestAVCapture < MiniTest::Test
     AVCapture.devices.find(&:video?)
   end
 
+  def test_simplified_api
+    session = AVCapture::Session.new
+    dev     = AVCapture.devices.find(&:video?)
+
+    data = nil
+    session.run_with(dev) do |connection|
+      data = connection.capture
+    end
+    assert data
+  end
+
   def test_output
     sio = AVCapture::StillImageOutput.new
     assert_equal 0, sio.connections.length

@@ -15,26 +15,20 @@ Wraps up AVCapture and exposes it to Ruby.
 Capture an image:
 
 ```ruby
-session = AVCapture::Session.new # AVCaptureSession
-dev     = AVCapture.devices.find(&:video?) # AVCaptureDevice
+require 'av_capture'
+
+session = AVCapture::Session.new
+dev     = AVCapture.devices.find(&:video?)
 
 p dev.name
 p dev.video?
-output  = AVCapture::StillImageOutput.new # AVCaptureOutput subclass
-session.add_input dev.as_input
-session.add_output output
 
-session.run do
-  connection = output.video_connection
-
-  ios = 5.times.map {
-    io = output.capture_on connection
-    sleep 0.5
-    io
-  }
-
-  ios.each_with_index do |io, i|
-    File.open("x_#{i}.jpg", 'wb') { |f| f.write io.data }
+session.run_with(dev) do |connection|
+  2.times do |i|
+    File.open("x_#{i}.jpg", 'wb') { |f|
+      f.write connection.capture
+    }
+    sleep 1
   end
 end
 ```

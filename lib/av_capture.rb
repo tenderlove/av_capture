@@ -42,6 +42,26 @@ module AVCapture
   end
 
   class Session
+    class Capture
+      def initialize output, connection
+        @output     = output
+        @connection = connection
+      end
+
+      def capture
+        @output.capture_on(@connection).data
+      end
+    end
+
+    def run_with dev
+      output  = AVCapture::StillImageOutput.new
+      add_input dev.as_input
+      add_output output
+      connection = output.video_connection
+      capture = Capture.new output, connection
+      run { yield capture }
+    end
+
     def run
       start_running!
       yield
