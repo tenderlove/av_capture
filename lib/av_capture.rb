@@ -2,7 +2,7 @@ require 'av_capture.so'
 require 'thread'
 
 module AVCapture
-  VERSION = '1.0.1'
+  VERSION = '1.0.2'
 
   class Device
     def video?
